@@ -26,8 +26,8 @@ class Logo {
         console.log('DEBUG: ', { ...params })
     }
 
-    render(dx = 0, dy = 0) {
-        this.__debug({ ...this, diff: { dx, dy } })
+    render(dx = 0, dy = 0, color) {
+        this.__debug({ ...this, diff: { dx, dy, color } })
         
         const { horizontal: hl, vertical: vl, thickness: th } = this.config
         const {indentCoef: coef, width: wd, height: hg} = this
@@ -40,7 +40,7 @@ class Logo {
         const vert2PosY = (hg / 2) - (vl / 2) + (th * coef)
         const horixPosY = (hg / 2) - (vl / 2) - th
 
-        this.__setColor()
+        this.__setColor(color)
         this.__createLine(vert1PosX + dx, vert1PosY + dy, th, vl)
         this.__createLine(vert2PosX + dx, vert2PosY + dy, th, vl)
         this.__createLine(horizPosX + dx, horixPosY + dy, hl, th)
@@ -54,8 +54,8 @@ class Logo {
         this.ctx.clearRect(0, 0, this.width, this.height)
     }
 
-    __setColor() {
-        this.ctx.fillStyle = this.config.color ?? this.defaultColor
+    __setColor(color) {
+        this.ctx.fillStyle = color || this.config.color || this.defaultColor
     }
 }
 
@@ -63,7 +63,7 @@ const logoConfig = {
     vertical: 150,
     horizontal: 100,
     thickness: 16,
-    // color: 'white',
+    color: 'white',
 }
 const logo = new Logo(canvasContext, logoConfig)
 
