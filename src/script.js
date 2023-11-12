@@ -20,6 +20,7 @@ class Logo {
         this.config = config
         this.defaultColor = 'yellow'
         this.indentCoef = 22 / 16
+        this.currentOffset = { dx: 0, dy: 0 }
     }
 
     __debug(params) {
@@ -27,8 +28,8 @@ class Logo {
     }
 
     render(dx = 0, dy = 0, color) {
-        this.__debug({ ...this, diff: { dx, dy, color } })
-        
+        // this.__debug({ ...this, params: { diff: { dx, dy, renderColor: color } } })
+
         const { horizontal: hl, vertical: vl, thickness: th } = this.config
         const {indentCoef: coef, width: wd, height: hg} = this
         
@@ -40,6 +41,7 @@ class Logo {
         const vert2PosY = (hg / 2) - (vl / 2) + (th * coef)
         const horixPosY = (hg / 2) - (vl / 2) - th
 
+        this.__clear()
         this.__setColor(color)
         this.__createLine(vert1PosX + dx, vert1PosY + dy, th, vl)
         this.__createLine(vert2PosX + dx, vert2PosY + dy, th, vl)
@@ -67,7 +69,25 @@ const logoConfig = {
 }
 const logo = new Logo(canvasContext, logoConfig)
 
+const STEP = 25;
+
 // logo.__clear()
-// logo.__setColor()
+logo.render(0, 0)
+// logo.__clear()
 // logo.__createLine(10, 30, 16, 150)
-logo.render(-150, -20)
+// logo.__setColor('red')
+
+document.addEventListener('keyup', function({ code }) {
+    console.log('EVENT: ', { code })
+
+    const { dx, dy } = function(code = '') {
+        if(code === 'ArrowUp') return { dx: 0, dy: -STEP }
+        if(code === 'ArrowDown') return { dx: 0, dy: STEP }
+        if(code === 'ArrowLeft') return { dx: -STEP, dy: 0 }
+        if(code === 'ArrowRight') return { dx: STEP, dy: 0 }
+
+        return { dx: 0, dy: 0 }
+    }(code)
+
+    logo.render(dx, dy, 'red')
+})
