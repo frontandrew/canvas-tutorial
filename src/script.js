@@ -1,16 +1,15 @@
-const canvas = document.getElementById('canvas')
-const canvasContext = canvas.getContext('2d')
+const ctx = document.getElementById('canvas').getContext('2d')
 
-// console.log('CANVAS: ', canvasContext)
+// console.log('CANVAS: ', ctx)
 
 canvas.width = 400
 canvas.height = 400
 
-// canvasContext.fillStyle = 'red'
-// canvasContext.fillRect(190, 190, 20, 20)
+// ctx.fillStyle = 'red'
+// ctx.fillRect(190, 190, 20, 20)
 
-// canvasContext.fillRect(10, 10, 100, 16)
-// canvasContext.fillRect(10, 30, 16, 150)
+// ctx.fillRect(10, 10, 100, 16)
+// ctx.fillRect(10, 30, 16, 150)
 
 class Logo {
     constructor(context, config) {
@@ -28,7 +27,7 @@ class Logo {
     }
 
     render(dx = 0, dy = 0, color) {
-        // this._debug({ ...this, params: { diff: { dx, dy, renderColor: color } } })
+        this._debug({ ...this, params: { diff: { dx, dy, renderColor: color } } })
 
         const { horizontal: hl, vertical: vl, thickness: th } = this.config
         const {indentCoef: coef, width: wd, height: hg} = this
@@ -75,7 +74,7 @@ const logoConfig = {
     thickness: 16,
     color: 'white',
 }
-const logo = new Logo(canvasContext, logoConfig)
+const logo = new Logo(ctx, logoConfig)
 
 const STEP = 25;
 
@@ -97,5 +96,9 @@ document.addEventListener('keyup', function({ code }) {
         return { dx: 0, dy: 0 }
     }(code)
 
-    logo.render(dx, dy, 'red')
+    // logo.render(dx, dy, 'red')
+
+    ctx.translate(dx, dy)
+    logo._clear()
+    logo._setColor('red')
 })
