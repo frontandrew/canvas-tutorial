@@ -36,8 +36,8 @@ class Logo {
         const vert2PosX = (wd / 2) + (hl / 2) + (th * coef)
         const horizPosX = (wd / 2) - (hl / 2)
 
-        const vert1PosY = (hg / 2) - (vl / 2) + th
-        const vert2PosY = (hg / 2) - (vl / 2) + th
+        const vert1PosY = (hg / 2) - (vl / 2) + (th * coef)
+        const vert2PosY = (hg / 2) - (vl / 2) + (th * coef)
         const horixPosY = (hg / 2) - (vl / 2) - th
 
         this.__setColor()
