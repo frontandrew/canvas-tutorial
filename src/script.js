@@ -22,11 +22,13 @@ class Logo {
         this.indentCoef = 22 / 16
     }
 
-    __debug() {
-        console.log('LOGO: ', { ...this })
+    __debug(params) {
+        console.log('DEBUG: ', { ...params })
     }
 
-    render() {
+    render(dx = 0, dy = 0) {
+        this.__debug({ ...this, diff: { dx, dy } })
+        
         const { horizontal: hl, vertical: vl, thickness: th } = this.config
         const {indentCoef: coef, width: wd, height: hg} = this
         
@@ -39,9 +41,9 @@ class Logo {
         const horixPosY = (hg / 2) - (vl / 2) - th
 
         this.__setColor()
-        this.__createLine(vert1PosX, vert1PosY, th, vl)
-        this.__createLine(vert2PosX, vert2PosY, th, vl)
-        this.__createLine(horizPosX, horixPosY, hl, th)
+        this.__createLine(vert1PosX + dx, vert1PosY + dy, th, vl)
+        this.__createLine(vert2PosX + dx, vert2PosY + dy, th, vl)
+        this.__createLine(horizPosX + dx, horixPosY + dy, hl, th)
     }
 
     __createLine(x, y, width, height) {
@@ -58,16 +60,14 @@ class Logo {
 }
 
 const logoConfig = {
-    vertical: 170,
-    horizontal: 120,
-    thickness: 20,
-    color: 'white',
+    vertical: 150,
+    horizontal: 100,
+    thickness: 16,
+    // color: 'white',
 }
 const logo = new Logo(canvasContext, logoConfig)
 
 // logo.__clear()
 // logo.__setColor()
 // logo.__createLine(10, 30, 16, 150)
-logo.render()
-
-logo.__debug()
+logo.render(-150, -20)
