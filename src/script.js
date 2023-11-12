@@ -20,18 +20,21 @@ class Logo {
         this.config = config
         this.defaultColor = 'yellow'
         this.indentCoef = 22 / 16
-        this.currentOffset = { dx: 0, dy: 0 }
+        this.currentOffset = { x: 0, y: 0 }
     }
 
-    __debug(params) {
+    _debug(params) {
         console.log('DEBUG: ', { ...params })
     }
 
     render(dx = 0, dy = 0, color) {
-        // this.__debug({ ...this, params: { diff: { dx, dy, renderColor: color } } })
+        // this._debug({ ...this, params: { diff: { dx, dy, renderColor: color } } })
 
         const { horizontal: hl, vertical: vl, thickness: th } = this.config
         const {indentCoef: coef, width: wd, height: hg} = this
+
+        this._setOffset(dx, dy)
+        const { x, y } = this.currentOffset
         
         const vert1PosX = (wd / 2) - (hl / 2) - (th * coef) - th
         const vert2PosX = (wd / 2) + (hl / 2) + (th * coef)
@@ -41,22 +44,27 @@ class Logo {
         const vert2PosY = (hg / 2) - (vl / 2) + (th * coef)
         const horixPosY = (hg / 2) - (vl / 2) - th
 
-        this.__clear()
-        this.__setColor(color)
-        this.__createLine(vert1PosX + dx, vert1PosY + dy, th, vl)
-        this.__createLine(vert2PosX + dx, vert2PosY + dy, th, vl)
-        this.__createLine(horizPosX + dx, horixPosY + dy, hl, th)
+        this._clear()
+        this._setColor(color)
+        this._createLine(vert1PosX + x, vert1PosY + y, th, vl)
+        this._createLine(vert2PosX + x, vert2PosY + y, th, vl)
+        this._createLine(horizPosX + x, horixPosY + y, hl, th)
     }
 
-    __createLine(x, y, width, height) {
+    _setOffset(dx, dy) {
+        this.currentOffset.x += dx
+        this.currentOffset.y += dy        
+    }
+
+    _createLine(x, y, width, height) {
         this.ctx.fillRect(x, y, width, height)
     }
 
-    __clear() {
+    _clear() {
         this.ctx.clearRect(0, 0, this.width, this.height)
     }
 
-    __setColor(color) {
+    _setColor(color) {
         this.ctx.fillStyle = color || this.config.color || this.defaultColor
     }
 }
@@ -71,11 +79,11 @@ const logo = new Logo(canvasContext, logoConfig)
 
 const STEP = 25;
 
-// logo.__clear()
+// logo._clear()
 logo.render(0, 0)
-// logo.__clear()
-// logo.__createLine(10, 30, 16, 150)
-// logo.__setColor('red')
+// logo._clear()
+// logo._createLine(10, 30, 16, 150)
+// logo._setColor('red')
 
 document.addEventListener('keyup', function({ code }) {
     console.log('EVENT: ', { code })
