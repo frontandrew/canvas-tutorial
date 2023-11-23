@@ -1,8 +1,3 @@
-/**
- * Зашел в тупик с этим решением
- * Попробую решить через применение через трансформацию паттерна
- */
-
 const ctx = document.getElementById('canvas').getContext('2d')
 
 canvas.width = 400
@@ -75,11 +70,7 @@ const logo = new Logo(ctx, logoConfig)
 
 const STEP = 25;
 
-// logo._clear()
 logo.render(0, 0)
-// logo._clear()
-// logo._createLine(10, 30, 16, 150)
-// logo._setColor('red')
 
 document.addEventListener('keyup', function({ code }) {
     console.log('EVENT: ', { code })
@@ -89,8 +80,6 @@ document.addEventListener('keyup', function({ code }) {
         if(code === 'ArrowDown') return { dx: 0, dy: STEP }
         if(code === 'ArrowLeft') return { dx: -STEP, dy: 0 }
         if(code === 'ArrowRight') return { dx: STEP, dy: 0 }
-
-        // return { dx: 0, dy: 0 }
     }(code)
 
     logo.render(dx, dy)
