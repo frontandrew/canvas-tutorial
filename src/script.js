@@ -1,15 +1,12 @@
-const ctx = document.getElementById('canvas').getContext('2d')
+/**
+ * Зашел в тупик с этим решением
+ * Попробую решить через применение через трансформацию паттерна
+ */
 
-// console.log('CANVAS: ', ctx)
+const ctx = document.getElementById('canvas').getContext('2d')
 
 canvas.width = 400
 canvas.height = 400
-
-// ctx.fillStyle = 'red'
-// ctx.fillRect(190, 190, 20, 20)
-
-// ctx.fillRect(10, 10, 100, 16)
-// ctx.fillRect(10, 30, 16, 150)
 
 class Logo {
     constructor(context, config) {
@@ -93,12 +90,8 @@ document.addEventListener('keyup', function({ code }) {
         if(code === 'ArrowLeft') return { dx: -STEP, dy: 0 }
         if(code === 'ArrowRight') return { dx: STEP, dy: 0 }
 
-        return { dx: 0, dy: 0 }
+        // return { dx: 0, dy: 0 }
     }(code)
 
-    // logo.render(dx, dy, 'red')
-
-    ctx.translate(dx, dy)
-    logo._clear()
-    logo._setColor('red')
+    logo.render(dx, dy)
 })
