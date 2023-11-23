@@ -5,7 +5,6 @@ const logoConfig = {
     horizontal: 100,
     thickness: 16,
     color: 'white',
-    debug: true,
 }
 
 class Logo {
@@ -28,12 +27,6 @@ class Logo {
         this._render()
 
         return this.element
-    }
-
-    _debug() {
-        if (this.config.debug) {
-            console.log('LOGO DEBUG: ', this)
-        }
     }
 
     _render() {
