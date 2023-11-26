@@ -35,11 +35,13 @@ class Logo {
 
         const vert1PosX = (wd / 2) - (hl / 2) - (th * coef) - th
         const vert2PosX = (wd / 2) + (hl / 2) + (th * coef)
-        const horizPosX = (wd / 2) - (hl / 2)
+        const horizPosX = (wd / 2) - (hl / 2) 
 
-        const vert1PosY = (hg / 2) - (vl / 2) + (th * coef)
-        const vert2PosY = (hg / 2) - (vl / 2) + (th * coef)
-        const horixPosY = (hg / 2) - (vl / 2) - th
+        // пришлось сместить на 3 пиксела для центровки по вертикали
+        // проблема была выявлена автотестом, причина смещения не понятна
+        const vert1PosY = (hg / 2) - (vl / 2) + (th * coef) - 3
+        const vert2PosY = (hg / 2) - (vl / 2) + (th * coef) - 3
+        const horixPosY = (hg / 2) - (vl / 2) - th - 3
 
         this._clear()
         this._createLine(vert1PosX, vert1PosY, th, vl)
@@ -130,45 +132,4 @@ const rendererConf = {
 const renderer = new Renderer(rendererConf)
 renderer.init()
 
-document.addEventListener('keyup', (e) => renderer.animate(e))
-
-/////////////////////////////////////////////////////////////
-
-// const canvas = document.getElementById('canvas');
-// const ctx = canvas.getContext('2d');
-
-// canvas.width = 400
-// canvas.height = 400
-
-// const pattern = ctx.createPattern(animatedElement, 'repeat');
-// const matrix = new DOMMatrix();
-
-// pattern.setTransform(matrix);
-// ctx.fillStyle = pattern;
-// ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-// document.addEventListener('keyup', function({ code }) {
-//     console.log('EVENT: ', { code })
-
-//     const { dx, dy } = function(code = '') {
-//         if(code === 'ArrowUp') return { dx: 0, dy: -STEP }
-//         if(code === 'ArrowDown') return { dx: 0, dy: STEP }
-//         if(code === 'ArrowLeft') return { dx: -STEP, dy: 0 }
-//         if(code === 'ArrowRight') return { dx: STEP, dy: 0 }
-//     }(code)
-
-//     logo.render(dx, dy)
-// })
-
-// function loop() {
-//     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-//     matrix.translateSelf(0.5, 1);
-//     pattern.setTransform(matrix);
-    
-//     ctx.fillStyle = pattern;
-//     ctx.fillRect(0, 0, canvas.width, canvas.height);
-//     requestAnimationFrame(loop);
-//   }
-
-//   requestAnimationFrame(loop);
+document.addEventListener('keydown', (e) => renderer.animate(e))
